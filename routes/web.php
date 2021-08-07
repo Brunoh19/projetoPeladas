@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 // Rotas Jogador
+Route::any('admin/jogadores/search', 'Admin\JogadorController@search')->name('jogadores.search');
 Route::get('admin/jogadores/destroy/{id}','Admin\JogadorController@destroy')->name('jogadores.destroy');
 Route::put('admin/jogadores/update/{id}','Admin\JogadorController@update')->name('jogadores.update');
 Route::get('admin/jogadores/edit/{id}','Admin\JogadorController@edit')->name('jogadores.edit');

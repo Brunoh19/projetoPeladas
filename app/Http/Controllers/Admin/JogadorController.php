@@ -74,4 +74,22 @@ class JogadorController extends Controller
                         ->with('message','Jogador Excluído com Sucesso!');
 
     }
+
+    // Filtro de Pesquisa
+    public function search(Request $request)
+    {
+        $filters = $request->only('filter');
+
+        $jogadores = $this->repository
+                            ->where(function($query) use ($request){
+                                if ($request->filter){
+                                    $query->where('nome','LIKE',"%{$request->filter}%")
+                                            ->orWhere('apelido','LIKE',"%{$request->filter}%");
+                                }
+                            })
+                            ->paginate();                   
+
+        return view('admin.pages.jogadores.index', compact('jogadores', 'filters'));
+
+    }
 }
