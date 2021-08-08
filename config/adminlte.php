@@ -242,9 +242,9 @@ return [
             'icon' => 'fas fa-user'
         ],
         [
-            'text' => 'Permissions',
-            'url'  => 'admin/permissions',
-            'icon' => 'fas fa-lock'
+            'text' => 'Peladas',
+            'url'  => 'admin/peladas',
+            'icon' => 'fas fa-futbol'
         ],
     ],
     /*
