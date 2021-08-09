@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pelada;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdatePeladaRequest;
+use Exception;
 
 class PeladaController extends Controller
 {
@@ -48,21 +49,17 @@ class PeladaController extends Controller
      */
     public function store(StoreUpdatePeladaRequest $request)
     {
-        $this->repository->create($request->all());
+        try {
 
-        return redirect()->route('peladas.index')
+            $this->repository->create($request->all());
+
+            return redirect()->route('peladas.index')
                          ->with('message','Pelada Registrada com Sucesso!');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        } catch (Exception $e) {
+
+            return redirect()->route('peladas.index')->with('error',$e->getMessage());
+        }
     }
 
     /**
@@ -93,10 +90,17 @@ class PeladaController extends Controller
             return redirect()->back();
         }
 
-       $pelada->update($request->all());
+        try {
 
-       return redirect()->route('peladas.index')
-                        ->with('message','Pelada Editada com Sucesso!');
+            $pelada->update($request->all());
+
+            return redirect()->route('peladas.index')
+                             ->with('message','Pelada Editada com Sucesso!');
+
+        } catch (Exception $e) {
+
+            return redirect()->route('peladas.index')->with('error',$e->getMessage());
+        }
     }
 
     /**
@@ -111,9 +115,16 @@ class PeladaController extends Controller
             return redirect()->back();
         }
     
-       $pelada->delete();
+        try {
 
-       return redirect()->route('peladas.index')
-                        ->with('message','Pelada Excluída com Sucesso!');
+            $pelada->delete();
+
+            return redirect()->route('peladas.index')
+                            ->with('message','Pelada Excluída com Sucesso!');
+
+        } catch (Exception $e) {
+            
+            return redirect()->route('peladas.index')->with('error',$e->getMessage());
+        }
     }
 }

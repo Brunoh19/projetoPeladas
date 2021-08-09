@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jogador;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateJogadorRequest;
+use Exception;
 
 class JogadorController extends Controller
 {
@@ -32,10 +33,22 @@ class JogadorController extends Controller
     // Salvar Novo Jogador
     public function store(StoreUpdateJogadorRequest $request)
     {
-        $this->repository->create($request->all());
+        try {
 
-        return redirect()->route('jogadores.index')
-                         ->with('message','Jogador Registrado com Sucesso!');
+            $this->repository->create([
+                'nome' => $request['nome'],
+                'apelido' => $request['apelido'],
+                'email' => $request['email'],
+                'senha' => bcrypt($request['senha'])
+            ]);
+    
+            return redirect()->route('jogadores.index')
+                             ->with('message','Jogador Registrado com Sucesso!');
+
+        } catch (Exception $e) {
+
+            return redirect()->route('jogadores.index')->with('error',$e->getMessage());
+        }
     }
 
     // Editar Jogador
@@ -55,10 +68,22 @@ class JogadorController extends Controller
             return redirect()->back();
        }
 
-       $jogador->update($request->all());
+      try {
+
+        $jogador->repository->update([
+            'nome' => $request['nome'],
+            'apelido' => $request['apelido'],
+            'email' => $request['email'],
+            'senha' => bcrypt($request['senha'])
+        ]);
 
        return redirect()->route('jogadores.index')
                         ->with('message','Jogador Editado com Sucesso!');
+
+      } catch (Exception $e) {
+
+        return redirect()->route('jogadores.index')->with('error',$e->getMessage());
+      }
     }
 
     // Deletar Jogador
@@ -68,10 +93,17 @@ class JogadorController extends Controller
             return redirect()->back();
        }
     
-       $jogador->delete();
+       try {
 
-       return redirect()->route('jogadores.index')
-                        ->with('message','Jogador Excluído com Sucesso!');
+        $jogador->delete();
+
+        return redirect()->route('jogadores.index')
+                         ->with('message','Jogador Excluído com Sucesso!');
+
+       } catch (Exception $e) {
+
+            return redirect()->route('jogadores.index')->with('error',$e->getMessage());
+       }
 
     }
 

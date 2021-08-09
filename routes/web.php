@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')
+        ->middleware('auth')
+        ->group(function(){
 
     // Rotas Jogador X Pelada
     Route::get('/jogadores/{id}/peladas/{idPelada}/detach','Admin\JogadorPeladaController@detachPeladaJogador')->name('jogadores.peladas.detach');
@@ -33,9 +35,10 @@ Route::prefix('admin')->group(function(){
 
 });
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
