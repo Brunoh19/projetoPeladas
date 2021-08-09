@@ -46,6 +46,7 @@ class JogadorPeladaController extends Controller
         return view('admin.pages.peladas.jogadores.index', compact('pelada', 'jogadores'));
     }
 
+    // Peladas Disponivéis Para Inscrição
     public function peladasAvailable(Request $request, $idJogador)
     {
 
@@ -60,6 +61,7 @@ class JogadorPeladaController extends Controller
         return view('admin.pages.jogadores.peladas.available', compact('jogador', 'peladas', 'filters'));
     }
 
+    // Peladas Selecionadas Para Se Inscrever
     public function attachPeladasJogador(Request $request, $idJogador)
     {
 
@@ -78,7 +80,7 @@ class JogadorPeladaController extends Controller
         return redirect()->route('jogadores.peladas', $jogador->id);
     }
 
-
+    //Desvincular Peladas
     public function detachPeladaJogador($idJogador, $idPelada)
     {
 
