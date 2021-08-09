@@ -94,4 +94,20 @@ class JogadorPeladaController extends Controller
         return redirect()->back();
     }
 
+    public function detachJogadorPelada($idJogador, $idPelada)
+    {
+
+        $jogador = $this->jogador->find($idJogador);
+        $pelada = $this->pelada->find($idPelada);
+
+        if (!$jogador || !$pelada) {
+            return redirect()->back();
+        }
+
+        $pelada->jogadores()->detach($jogador);
+
+        return redirect()->back();
+    }
+
+
 }

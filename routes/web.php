@@ -9,6 +9,7 @@ Route::prefix('admin')
         ->group(function(){
 
     // Rotas Jogador X Pelada
+    Route::get('/peladas/{id}/jogadores/{idJoagador}/detach','Admin\JogadorPeladaController@detachJogadorPelada')->name('peladas.jogadores.detach');
     Route::get('/jogadores/{id}/peladas/{idPelada}/detach','Admin\JogadorPeladaController@detachPeladaJogador')->name('jogadores.peladas.detach');
     Route::post('/jogadores/{id}/peladas','Admin\JogadorPeladaController@attachPeladasJogador')->name('jogadores.peladas.attach');
     Route::get('/jogadores/{id}/peladas/add','Admin\JogadorPeladaController@peladasAvailable')->name('jogadores.peladas.available');

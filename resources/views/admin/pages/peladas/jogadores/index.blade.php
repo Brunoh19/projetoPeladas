@@ -17,6 +17,7 @@
                         <th width="200px">Nome</th>
                         <th>Apelido</th>
                         <th>E-mail</th>
+                        <th width="90">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,9 @@
                             <td>{{ $jogador->nome }}</td>
                             <td>{{ $jogador->apelido }}</td>
                             <td>{{ $jogador->email }}</td>
+                            <td>
+                                <a href="{{route('jogadores.peladas.detach',[$jogador->id, $pelada->id])}}" class="btn btn-danger"><i class="fas fa-trash" id="btnDeletar"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
